@@ -16,10 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 io.on('connection', (socket) => {
     var client_ip_address = socket.request.connection._peername;
 
-    console.log('User Connected on', client_ip_address.address);
+    //console.log('User Connected on', client_ip_address.address);
+    io.emit('user-joinRleft', data[client_ip_address.address] + " Joined the chat room");
+
 
     socket.on('disconnect', () => {
-        console.log('User Disconnected from', client_ip_address.address);
+        io.emit('user-joinRleft', data[client_ip_address.address] + " left the chat room");
     });
     socket.on('message', (msg) => {
         io.emit('message-recv', data[client_ip_address.address] + " : " + msg);

@@ -16,7 +16,7 @@
 
 <body style="background: radial-gradient(rgb(194,194,194) 0%, rgb(69,69,69) 100%);">
     <h1 class="text-center" style="border-bottom-style: solid;border-bottom-color: rgb(0,0,0);"><span><%=name%></span><strong> CHAT ROOM</strong></h1>
-    <div id="msg-id" class="container" style="border-radius: 14px;border: 2px solid rgb(0,0,0);height: 65vh; overflow: scroll;">
+    <div id="msg-id" class="container" style="border-radius: 14px;border: 2px solid rgb(0,0,0);height: 65vh; overflow: auto;">
         <div>
             <ul id="messages-li" class="list-unstyled">
 
@@ -50,6 +50,13 @@
 
             var myElement = document.getElementById('msg-id');
             myElement.scrollIntoView();
+        });
+        socket.on("user-joinRleft", (recieved_msg) => {
+            var item = document.createElement('li');
+            item.textContent = recieved_msg;
+            item.style = "text-align:center";
+            messages.appendChild(item);
+            document.getElementById('user-msg').value = "";
         });
     </script>
 
